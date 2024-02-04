@@ -11,3 +11,38 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+header{
+  padding: 10px 60px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  /* text-transform: uppercase; */
+}
+main{
+  padding: 40px 60px;
+  min-height: 100vh;
+  display: flex;
+  justify-content:space-around;
+  background-color: rgb(241, 243, 246);
+}
+.side-panel2{
+  width: 386px;
+  padding: 30px 0 0 30px;
+  text-align: center;
+}
+.side-panel1{
+  width: 977px;
+  padding: 30px 0 0 30px;
+}
+.side-panel1 h5{
+  /* text-transform: uppercase; */
+}
+/* .accordion1{
+  margin-bottom: 32px;
+} */
+.accordion2{
+  margin-bottom: 16px;
+}
