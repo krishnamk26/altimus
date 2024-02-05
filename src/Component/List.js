@@ -5,7 +5,7 @@ import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import List2 from "./List2";
 import AddresForm from "./AddresForm";
 
-function List({checked,handleChanged,handleNewAddress,handleEditClicked,isEditClick,newAddress}) {
+function List({checked,handleChanged,handleNewAddress,handleEditClicked,isEditClick,newAddress,inputs}) {
 
   return (
       <AccordionDetails sx={{ padding: "16px" }}>
@@ -37,7 +37,8 @@ function List({checked,handleChanged,handleNewAddress,handleEditClicked,isEditCl
         <Box sx={{ display: "flex", flexDirection: "row" }}>
           <List2 
           handleEditClicked={handleEditClicked}
-          isEditClick={isEditClick}/>
+          isEditClick={isEditClick}
+          inputs={inputs}/>
         </Box>
         <FormControlLabel
           control={<Checkbox checked={checked} onChange={handleChanged} color="info" />}

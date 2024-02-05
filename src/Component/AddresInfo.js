@@ -12,7 +12,7 @@ import List from "./List";
 import AddresForm from "./AddresForm";
 
 
-function AddresInfo({ handleChange, expanded, countries, inputs, handleChangeForm, handleSubmitForm, newAddress, handleNewAddress, isButtonClicked, handleButtonClicked, handleSaveClick, isSaveClick, checked, handleChanged, handleEditClicked, isEditClick,isCancelClick,handleCancelClick }) {
+function AddresInfo({ handleChange, expanded, countries, inputs, handleChangeForm, handleSubmitForm, newAddress, handleNewAddress, isButtonClicked, handleButtonClicked, handleSaveClick, isSaveClick, checked, handleChanged, handleEditClicked, isEditClick,isCancelClick,handleCancelClick,setInputs,users,setUsers }) {
 
 
   return (
@@ -48,7 +48,7 @@ function AddresInfo({ handleChange, expanded, countries, inputs, handleChangeFor
                   <PersonOutlinedIcon color="disabled" />
                   <Typography
                     sx={{ lineHeight: 1.5, fontWeight: 600, color: "rgb(26, 34, 40)", textTransform: "uppercase", }}>
-                    krishna
+                    {inputs.name}
                   </Typography>
                 </Stack>
                 <Stack
@@ -68,7 +68,7 @@ function AddresInfo({ handleChange, expanded, countries, inputs, handleChangeFor
                       textTransform: "lowercase",
                     }}
                   >
-                    Address
+                   {`${inputs.address1}, ${inputs.town}, ${inputs.postalcode}, ${inputs.country}`}
                   </Typography>
                 </Stack>
                 <Stack
@@ -88,7 +88,7 @@ function AddresInfo({ handleChange, expanded, countries, inputs, handleChangeFor
                       textTransform: "lowercase",
                     }}
                   >
-                    +91 9578675765
+                    {inputs.phonenumber}
                   </Typography>
                 </Stack>
               </Box>
@@ -173,7 +173,7 @@ function AddresInfo({ handleChange, expanded, countries, inputs, handleChangeFor
             </Grid>
           </AccordionSummary>)}
         <AccordionDetails sx={{ padding: "16px" }}>
-          {!isEditClick && !newAddress && !isCancelClick&&(
+        {!isEditClick && !newAddress && !isCancelClick&&(
             <List
               inputs={inputs}
               handleNewAddress={handleNewAddress}

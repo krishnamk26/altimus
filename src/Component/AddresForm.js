@@ -5,7 +5,7 @@ import {
 import SearchIcon from "@mui/icons-material/Search";
 import AddresInfo from "./AddresInfo";
 
-function AddresForm({ countries, inputs, handleChangeForm, handleSubmitForm, handleSaveClick, isSaveClick, checked, handleChanged,isCancelClick,handleCancelClick}) {
+function AddresForm({ setInputs, inputs, handleChangeForm, handleSubmitForm, handleSaveClick, isSaveClick, checked, handleChanged,isCancelClick,handleCancelClick,users,setUsers}) {
   return (
     <AccordionDetails>
       <Box sx={{ marginBottom: "16px" }}>
@@ -79,38 +79,6 @@ function AddresForm({ countries, inputs, handleChangeForm, handleSubmitForm, han
                     onChange={handleChangeForm}
                     type="number"
                     placeholder="Phone Number" />
-                  {/* <Autocomplete
-                    id="country-select-demo"
-                    options={countries}
-                    autoHighlight
-                    getOptionLabel={(option) => option.label}
-                    renderOption={(props, option) => (
-                      <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
-                        <img
-                          loading="lazy"
-                          width="20"
-                          srcSet={`https://flagcdn.com/w40/${option.code.toLowerCase()}.png 2x`}
-                          src={`https://flagcdn.com/w20/${option.code.toLowerCase()}.png`}
-                          alt=""
-                        />
-                        {option.label} ({option.code}) +{option.phone}
-                      </Box>
-                    )}
-                    renderInput={(params) => (
-                      <TextField size="small"
-                      sx={{ color: "rgb(0,0,0,1)", fontWeight: 600, marginBottom: "10px !important", fontSize: "14px", position: "relative", padding: 0, backgroundColor: "white" }}
-                        {...params}
-                        placeholder="Phone Number"
-                        inputProps={{
-                          ...params.inputProps,
-                          autoComplete: 'new-password', // disable autocomplete and autofill
-                        }}
-                        value={inputs.phonenumber}
-                        name="phonenumber"
-
-                      />
-                    )}
-                  /> */}
                 </FormControl>
               </Grid>
             </Grid> 
@@ -159,37 +127,6 @@ function AddresForm({ countries, inputs, handleChangeForm, handleSubmitForm, han
                       type="text"
                       placeholder="Country" />
                   </FormControl>
-                  {/* <Autocomplete
-                    id="country-select-demo"
-                    options={countries}
-                    autoHighlight
-                    getOptionLabel={(option) => option.label}
-                    renderOption={(props, option) => (
-                      <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
-                        <img
-                          loading="lazy"
-                          width="20"
-                          srcSet={`https://flagcdn.com/w40/${option.code.toLowerCase()}.png 2x`}
-                          src={`https://flagcdn.com/w20/${option.code.toLowerCase()}.png`}
-                          alt=""
-                        />
-                        {option.label} ({option.code}) +{option.phone}
-                      </Box>
-                    )}
-                    renderInput={(params) => (
-                      <TextField size="small"
-                      sx={{ color: "rgb(0,0,0,1)", fontWeight: 600, marginBottom: "10px !important", fontSize: "14px", position: "relative", padding: 0, backgroundColor: "white" }}
-                        {...params}
-                        placeholder= "india"
-                        inputProps={{
-                          ...params.inputProps,
-                          autoComplete: 'new-password', // disable autocomplete and autofill
-                        }}
-                        value={inputs.country}
-                        name="country"
-                      />
-                    )}
-                  /> */}
                 </Grid>
               </Grid>
             </Box>
@@ -291,7 +228,8 @@ function AddresForm({ countries, inputs, handleChangeForm, handleSubmitForm, han
                   {isCancelClick&&<List/>}
                 </Grid>
                 <Grid item sx={{ margin: 0, boxSizing: "border-box", flexDirection: "row" }}>
-                  <Button type="submit" variant="contained" sx={{ backgroundColor: "rgb(26, 34, 40)", cursor: "pointer", minWidth: "100px", color: "rgb(255, 255, 255)", border: "1px solid rgba(26, 34, 40, 0.5)", ":hover": { backgroundColor: "black" } }} onClick={handleSaveClick} >Save</Button>
+                  <Button type="submit" variant="contained" sx={{ backgroundColor: "rgb(26, 34, 40)", cursor: "pointer", minWidth: "100px", color: "rgb(255, 255, 255)", border: "1px solid rgba(26, 34, 40, 0.5)", ":hover": { backgroundColor: "black" } }} onClick={handleCancelClick} >Save</Button>
+                  {isCancelClick&&<List/>}
                 </Grid>
               </Grid>
             </Box>

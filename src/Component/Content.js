@@ -21,18 +21,26 @@ function Content() {
   const [isCancelClick, setCancelClick] = useState(false)
   const [checked, setChecked] = useState(true);
   const [inputs, setInputs] = useState({
-    name: "",
-    lastname: "",
-    phonenumber: "",
+    name: "krishna",
+    lastname: "mk",
+    phonenumber: "9578675765",
     findaddress: "",
-    country: "",
+    country: "india",
+    address1: "1/1 krishnapuram colony",
+    address2: "4th street",
+    address3: "",
+    town: "madurai",
+    state: "tamilnadu",
+    postalcode: "625014",
+  }); // form data
+
+  const [users, setUsers] = useState({
+    name: "",
+    phonenumber: "",
     address1: "",
     address2: "",
     address3: "",
-    town: "",
-    state: "",
-    postalcode: "",
-  }); // form data
+  }); 
 
   const handleChangeForm = (e) =>{
     // setInputs((prevState)=>({
@@ -43,8 +51,6 @@ function Content() {
         ...inputs,
         [name]: value
       })
-      
-    
   } // address form data 
 
   const handleSubmitForm = (e) =>{
@@ -122,6 +128,9 @@ function Content() {
             buttonText={buttonText}
             handleSubmitForm={handleSubmitForm}
             inputs={inputs}
+            setInputs={setInputs}
+            users={users}
+            setUsers={setUsers}
             handleChangeForm={handleChangeForm}
             newAddress={newAddress}
             handleNewAddress={handleNewAddress}

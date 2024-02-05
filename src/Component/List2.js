@@ -6,7 +6,7 @@ import Stack from "@mui/system/Stack";
 import { Box, Button, Typography } from '@mui/material';
 import AddresForm from './AddresForm';
 
-function List2({handleChanged,handleEditClicked,isEditClick}) {
+function List2({handleChanged,handleEditClicked,isEditClick,inputs}) {
     const [selectedValue, setSelectedValue] = useState("");
     
     return (
@@ -19,7 +19,7 @@ function List2({handleChanged,handleEditClicked,isEditClick}) {
                         <Stack sx={{ display: "flex", flexDirection: "row", alignItems: "center", gap: "8px", }} >
                             <Radio checked={selectedValue === "a"} onChange={handleChanged} value="a" name="radio-buttons" inputProps={{ "aria-label": "A" }} />
                             <Box 
-                                sx={{ fontWeight: 700, lineHeight: 1.5, whiteSpace: "normal", textTransform: "none", }}> Krishna
+                                sx={{ fontWeight: 700, lineHeight: 1.5, whiteSpace: "normal", textTransform: "none", }}> {inputs.name}
                             </Box>
                         </Stack>
                         <Box sx={{ backgroundColor: "rgb(243, 245, 246)", height: "100%", borderRadius: "5px", cursor: "pointer", border: "1.5px", borderStyle: "solid", borderColor: "rgb(108, 133, 167)", }}>
@@ -35,11 +35,11 @@ function List2({handleChanged,handleEditClicked,isEditClick}) {
                 <Box sx={{ backgroundColor: "white", padding: "8px", borderRadius: "5px", height: "100%", margin:"8px" }}>
                     <Stack sx={{ display: "flex", flexDirection: "row", gap: "8px" }}>
                         <LocationOnOutlinedIcon />
-                        <Typography>Address Address Address Address </Typography>
+                        <Typography>{`${inputs.address1}, ${inputs.town}, ${inputs.postalcode}, ${inputs.country}`} </Typography>
                     </Stack>
                     <Stack sx={{ display: "flex", flexDirection: "row", gap: "8px", marginTop: "8px", }} >
                         <CallOutlinedIcon />
-                        <Typography>+91 9578675765</Typography>
+                        <Typography>{inputs.phonenumber}</Typography>
                     </Stack>
                 </Box>
 
