@@ -1,11 +1,11 @@
 import React from "react";
 import {
-  AccordionDetails, Box, Button, Checkbox, FormControl, FormControlLabel, FormLabel, Grid, InputAdornment, Stack, TextField, Typography,
+  AccordionDetails, Box, Button, Checkbox, FormControl, FormControlLabel, FormLabel, Grid, InputAdornment, List, Stack, TextField, Typography,isButtonClicked
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import AddresInfo from "./AddresInfo";
 
-function AddresForm({ countries, inputs, handleChangeForm, handleSubmitForm, handleSaveClick, isSaveClick, checked, handleChanged }) {
+function AddresForm({ countries, inputs, handleChangeForm, handleSubmitForm, handleSaveClick, isSaveClick, checked, handleChanged,isCancelClick,handleCancelClick}) {
   return (
     <AccordionDetails>
       <Box sx={{ marginBottom: "16px" }}>
@@ -113,7 +113,7 @@ function AddresForm({ countries, inputs, handleChangeForm, handleSubmitForm, han
                   /> */}
                 </FormControl>
               </Grid>
-            </Grid>
+            </Grid> 
 
             <Box
               sx={{ padding: "16px", backgroundColor: "rgb(233, 235, 238)", borderRadius: "8px", margin: "24px 0" }}>
@@ -287,11 +287,11 @@ function AddresForm({ countries, inputs, handleChangeForm, handleSubmitForm, han
             <Box sx={{ marginTop: "16px", paddingTop: "16px", borderTop: "1px solid rgb(238, 238, 238)" }}>
               <Grid container spacing={3} sx={{ boxSizing: "border-box", display: "flex", flexFlow: "wrap", marginTop: "-24px", justifyContent: "flex-end", width: "calc(100% + 24px)", marginLeft: "-24px", alignItems: "center" }}>
                 <Grid item sx={{ margin: 0, boxSizing: "border-box", flexDirection: "row" }}>
-                  <Button type="button" variant="outliend" sx={{ backgroundColor: "transparent", cursor: "pointer", minWidth: "100px", color: "rgb(26, 34, 40)", border: "1px solid rgba(26, 34, 40, 0.5)" }}>Cancel</Button>
+                  <Button type="button" variant="outliend" sx={{ backgroundColor: "transparent", cursor: "pointer", minWidth: "100px", color: "rgb(26, 34, 40)", border: "1px solid rgba(26, 34, 40, 0.5)" }}onClick={handleCancelClick}>Cancel</Button>
+                  {isCancelClick&&<List/>}
                 </Grid>
                 <Grid item sx={{ margin: 0, boxSizing: "border-box", flexDirection: "row" }}>
                   <Button type="submit" variant="contained" sx={{ backgroundColor: "rgb(26, 34, 40)", cursor: "pointer", minWidth: "100px", color: "rgb(255, 255, 255)", border: "1px solid rgba(26, 34, 40, 0.5)", ":hover": { backgroundColor: "black" } }} onClick={handleSaveClick} >Save</Button>
-                  {isSaveClick && <AddresInfo />}
                 </Grid>
               </Grid>
             </Box>

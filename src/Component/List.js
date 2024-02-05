@@ -3,11 +3,11 @@ import { Typography, Button, AccordionDetails, FormControlLabel, Checkbox, Grid,
 import Box from "@mui/system/Box";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import List2 from "./List2";
+import AddresForm from "./AddresForm";
 
-function List({checked,handleChanged,handleNewAddress}) {
+function List({checked,handleChanged,handleNewAddress,handleEditClicked,isEditClick,newAddress}) {
 
   return (
-    <>
       <AccordionDetails sx={{ padding: "16px" }}>
         <Box sx={{ marginBottom: "16px" }}>
           <Grid sx={{
@@ -30,13 +30,14 @@ function List({checked,handleChanged,handleNewAddress}) {
                 <AddOutlinedIcon sx={{ display: "inherit", marginRight: "8px", marginLeft: "-4px", color: "rgb(26, 34, 40)", }} />
                 New Address
               </Button>
+              {newAddress&&<AddresForm/>}
             </Grid>
           </Grid>
         </Box>
         <Box sx={{ display: "flex", flexDirection: "row" }}>
-          <List2 />
-          <List2 />
-          <List2 />
+          <List2 
+          handleEditClicked={handleEditClicked}
+          isEditClick={isEditClick}/>
         </Box>
         <FormControlLabel
           control={<Checkbox checked={checked} onChange={handleChanged} color="info" />}
@@ -46,8 +47,6 @@ function List({checked,handleChanged,handleNewAddress}) {
           >Continue</Button>
         </AccordionActions>
       </AccordionDetails>
-    </>
-
   );
 }
 
