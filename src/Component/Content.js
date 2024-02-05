@@ -14,6 +14,11 @@ function Content() {
   const [selectedCard, setSelectedCard] = useState("card1");
   const [buttonText, setButtonText] = useState("Change");
   const [showFirstButton, setShowFirstButton] = useState(true);
+  const [isButtonClicked, setButtonClicked] = useState(false);
+  const [newAddress, setNewAddress] = useState(false)
+  const [isSaveClick, setSaveClick] = useState (false)
+  const [checked, setChecked] = useState(true);
+  
   const countries = [
     { code: 'AD', label: 'Andorra', phone: '376' },
     {
@@ -439,9 +444,43 @@ function Content() {
     { code: 'ZW', label: 'Zimbabwe', phone: '263' },
   ];
 
+  const [inputs, setInputs] = useState({
+    name: "",
+    lastname: "",
+    phonenumber: "",
+    findaddress: "",
+    country: "",
+    address1: "",
+    address2: "",
+    address3: "",
+    town: "",
+    state: "",
+    postalcode: "",
+  }); // form data
+
+  const handleChangeForm = (e) =>{
+    setInputs((prevState)=>({
+      ...prevState,
+      [e.target.name] : e.target.value
+    }))
+  } // address form data 
+
+  const handleSubmitForm = (e) =>{
+    e.preventDefault()
+    console.log(inputs)
+  } // address form submit 
+
+  const handleSaveClick = () =>{
+    setSaveClick(true)
+  } // form save button
+
+  const handleChanged = (event) => {
+    setChecked(event.target.checked);
+  }; // address form radiobutton
+
   const handleChange = (isExpanded, panel) => {
     setExpanded(isExpanded ? panel : false);
-  };
+  }; // Accordion expand function
 
   const handleButtonClick = () => {
     setButtonText((prevButtonText) =>
@@ -452,19 +491,24 @@ function Content() {
         ? showFirstButton(false)
         : setShowFirstButton(true);
     }
-    // showFirstButtonTrue(true)
+    // choose shipment method button function
   };
 
-  // const showFirstButtonTrue = () => {
-  //   setShowFirstButton(true);
-  // };
-  const handleCardClick = (cardId) => {
-    setSelectedCard(cardId);
-  };
+  const handleButtonClicked = () => {
+    setButtonClicked(true);
+  }; // address information change button
 
+  const handleCardClick = (cardid) => {
+    setSelectedCard(cardid);
+  }; // choose shipment card function 
+
+  const handleNewAddress = () =>{
+    setNewAddress(true)
+  } // address form button (+new address)
+  
   return (
     <Grid container sx={{padding:"40px 60px",minHeight:"100vh",backgroundColor:"rgb(241, 243, 246)"}}>
-      <Grid xs={8}   >
+      <Grid  item xs={8}   >
         <Box >
           <Shipment
             handleChange={handleChange}
@@ -487,6 +531,18 @@ function Content() {
             handleButtonClick={handleButtonClick}
             buttonText={buttonText}
             countries={countries}
+            handleSubmitForm={handleSubmitForm}
+            inputs={inputs}
+            handleChangeForm={handleChangeForm}
+            newAddress={newAddress}
+            handleNewAddress={handleNewAddress}
+            handleSaveClick={handleSaveClick}
+            isSaveClick={isSaveClick}
+            isButtonClicked={isButtonClicked}
+            setButtonClicked={setButtonClicked}
+            checked={checked}
+            handleChanged={handleChanged}
+            handleButtonClicked={handleButtonClicked}
           />
 
           <DeliveryType handleChange={handleChange} expanded={expanded} />
@@ -494,7 +550,7 @@ function Content() {
           <PaymentMethod handleChange={handleChange} expanded={expanded} />
         </Box>
       </Grid>
-      <Grid xs={4}>
+      <Grid item xs={4}>
         <Box>
           <SidePanel />
         </Box>

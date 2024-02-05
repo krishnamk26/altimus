@@ -18,7 +18,7 @@ function ShipmentCard({firstCard,secondCard,handleCardClick,selectedCard}) {
             WebkitBoxAlign: "center",
             gap: "10px",
           }}
-          cardId="card1"
+          cardid="card1"
         >
           <CardMedia
             sx={{
@@ -46,7 +46,7 @@ function ShipmentCard({firstCard,secondCard,handleCardClick,selectedCard}) {
             WebkitBoxAlign: "center",
             gap: "10px",
           }}
-          cardId="card2"
+          cardid="card2"
         >
           <CardMedia
             sx={{

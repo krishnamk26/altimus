@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Accordion, AccordionSummary, AccordionDetails, Typography, Grid, Button,
  
@@ -12,21 +12,10 @@ import List from "./List";
 import AddresForm from "./AddresForm";
 
 
-function AddresInfo({ handleChange, expanded, countries }) {
+function AddresInfo({ handleChange, expanded, countries, inputs,handleChangeForm,handleSubmitForm,newAddress,handleNewAddress,isButtonClicked,handleButtonClicked,handleSaveClick,isSaveClick,checked,handleChanged}) {
  
-  const [isButtonClicked, setButtonClicked] = useState(false);
-  const [newAddress, setNewAddress] = useState(false)
-  
-  const handleNewAddress = () =>{
-    setNewAddress(true)
-  }
-  const handleButtonClick = () => {
-    setButtonClicked(true);
-    // Add any additional logic or state changes you want to perform here
-  };
  
   return (
-    
     <Grid sx={{ display: "flex", flexDirection: "column", marginBottom:"16px" }}>
       <Accordion
         expanded={expanded === "panel2"}
@@ -34,11 +23,8 @@ function AddresInfo({ handleChange, expanded, countries }) {
       >
         {!isButtonClicked && ( 
         <AccordionSummary id="panel2-header" aria-controls="panel2-content">
-          <Grid
-            xs={12}
-            direction="column"
-            sx={{ display: "flex", flexDirection: "column" }}
-          >
+          <Grid item xs={12} container direction="column"
+            sx={{ display: "flex", flexDirection: "column" }}>
             <Stack
               sx={{
                 display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center", paddingBottom: "8px", boxSizing: "border-box",
@@ -46,7 +32,7 @@ function AddresInfo({ handleChange, expanded, countries }) {
             >
               <Typography variant="div" component="h5" sx={{ textTransform: "uppercase" }}>address information
               </Typography>
-              <Button sx={{ display: "inline-flex", alignItems: "center", justifyContent: "center", position: "relative", boxSizing: "border-box", outline: "0px", backgroundColor: "transparent", cursor: "pointer", fontWeight: 500, lineHeight: 1.75, padding: "5px 15px", borderRadius: "6px", color:"rgb(26, 34, 40)",border:"1px solid rgba(26, 34, 40, 0.5)"}}  onClick={handleButtonClick}>
+              <Button sx={{ display: "inline-flex", alignItems: "center", justifyContent: "center", position: "relative", boxSizing: "border-box", outline: "0px", backgroundColor: "transparent", cursor: "pointer", fontWeight: 500, lineHeight: 1.75, padding: "5px 15px", borderRadius: "6px", color:"rgb(26, 34, 40)",border:"1px solid rgba(26, 34, 40, 0.5)"}}  onClick={handleButtonClicked}>
                 Change
               </Button>
               {isButtonClicked && <List/>}
@@ -57,24 +43,13 @@ function AddresInfo({ handleChange, expanded, countries }) {
                 Deliverd to
               </Typography>
               <Stack
-                sx={{
-                  display: "flex",
-                  flexDirection: "row",
-                  gap: "10px",
-                  marginTop: "8px",
-                }}
-              >
+                sx={{display: "flex", flexDirection: "row", gap: "10px", marginTop: "8px",}}>
                 <PersonOutlinedIcon color="disabled" />
-                <Typography
-                  sx={{
-                    lineHeight: 1.5,
-                    fontWeight: 600,
-                    color: "rgb(26, 34, 40)",
-                    textTransform: "uppercase",
-                  }}
-                >
-                  Name
-                </Typography>
+                {inputs?(<Typography 
+                  sx={{lineHeight: 1.5,fontWeight: 600,color: "rgb(26, 34, 40)",textTransform: "uppercase", }}>
+                {inputs.name} 
+                </Typography>):<Typography sx={{lineHeight: 1.5,fontWeight: 600,color: "rgb(26, 34, 40)",textTransform: "uppercase", }}>
+                  User</Typography>}
               </Stack>
               <Stack
                 sx={{
@@ -203,11 +178,20 @@ function AddresInfo({ handleChange, expanded, countries }) {
           <List
           handleNewAddress={handleNewAddress}
           newAddress = {newAddress}
+          checked={checked}
+            handleChanged={handleChanged}
           />)}
         </AccordionDetails>
         <AccordionDetails>
         {newAddress&&<AddresForm 
-        countries={countries}/>}
+        countries={countries}
+        handleSubmitForm={handleSubmitForm}
+        inputs={inputs}
+       handleSaveClick={handleSaveClick}
+        isSaveClick={isSaveClick}
+        handleChangeForm={handleChangeForm}
+        checked={checked}
+            handleChanged={handleChanged}/>}
         </AccordionDetails>
       </Accordion>
     </Grid>

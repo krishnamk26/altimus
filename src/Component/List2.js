@@ -5,11 +5,9 @@ import Radio from "@mui/material/Radio";
 import Stack from "@mui/system/Stack";
 import { Box, Button, Typography } from '@mui/material';
 
-function List2() {
+function List2({handleChanged}) {
     const [selectedValue, setSelectedValue] = useState("");
-    const handleChange = (event) => {
-        setSelectedValue(event.target.value);
-      };
+    
     return (
         <Box sx={{ backgroundColor: "rgb(243, 245, 246)", height: "100%", borderRadius: "5px", border: "1px", borderStyle: "solid", borderColor: "rgb(108, 133, 167)", marginLeft:"8px"}}>
             <Box>
@@ -18,8 +16,8 @@ function List2() {
                     <Stack
                         sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between", gap: "8px", }}>
                         <Stack sx={{ display: "flex", flexDirection: "row", alignItems: "center", gap: "8px", }} >
-                            <Radio checked={selectedValue === "a"} onChange={handleChange} value="a" name="radio-buttons" inputProps={{ "aria-label": "A" }} />
-                            <Box
+                            <Radio checked={selectedValue === "a"} onChange={handleChanged} value="a" name="radio-buttons" inputProps={{ "aria-label": "A" }} />
+                            <Box 
                                 sx={{ fontWeight: 700, lineHeight: 1.5, whiteSpace: "normal", textTransform: "none", }}>
                                 Krishna
                             </Box>

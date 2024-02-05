@@ -1,41 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import {
-  AccordionDetails, Autocomplete, Box, Button, Checkbox, FormControl, FormControlLabel, FormLabel, Grid, Stack, TextField, Typography,
+  AccordionDetails, Box, Button, Checkbox, FormControl, FormControlLabel, FormLabel, Grid, InputAdornment, Stack, TextField, Typography,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-import InputAdornment from "@mui/material/InputAdornment";
+import AddresInfo from "./AddresInfo";
 
-function AddresForm({ countries }) {
-  const [checked, setChecked] = useState(true);
-
-  const handleChanged = (event) => {
-    setChecked(event.target.checked);
-  };
-  const [input, setInput] = useState({
-    name: "",
-    lastName: "",
-    phoneNumber: "",
-    findAddress: "",
-    country: "",
-    address1: "",
-    address2: "",
-    address3: "",
-    town: "",
-    state: "",
-    postalCode: "",
-  });
-
-  const handleChangeForm = (e) =>{
-    setInput((prevState)=>({
-      ...prevState,
-      [e.target.name] : e.target.value
-    }))
-  }
-
-  const handleSubmitForm = (e) =>{
-    e.preventDefault()
-    console.log(input)
-  }
+function AddresForm({ countries, inputs, handleChangeForm, handleSubmitForm, handleSaveClick, isSaveClick, checked, handleChanged }) {
   return (
     <AccordionDetails>
       <Box sx={{ marginBottom: "16px" }}>
@@ -49,7 +19,7 @@ function AddresForm({ countries }) {
       </Box>
       <Box sx={{ display: "block" }}>
         <Box>
-          <form autoComplete="off" onSubmit={handleSubmitForm}>
+          <form onSubmit={handleSubmitForm} autoComplete="off">
             <Grid
               container
               spacing={2}
@@ -63,7 +33,7 @@ function AddresForm({ countries }) {
                   </FormLabel>
                   <TextField sx={{ display: "inline-flex", flexDirection: "column", position: "relative", minWidth: 0, padding: 0, margin: 0, border: 0, verticalAlign: "top", width: "100%" }}
                     name="name"
-                     value={input.name}
+                    value={inputs.name}
                     onChange={handleChangeForm}
                     color="primary"
                     size="small"
@@ -81,8 +51,8 @@ function AddresForm({ countries }) {
                     </Box>
                   </FormLabel>
                   <TextField sx={{ display: "inline-flex", flexDirection: "column", position: "relative", minWidth: 0, padding: 0, margin: 0, border: 0, verticalAlign: "top", width: "100%" }}
-                    value={input.lastName}
-                    name="lastName"
+                    value={inputs.lastname}
+                    name="lastname"
                     color="primary"
                     size="small"
                     onChange={handleChangeForm}
@@ -100,12 +70,20 @@ function AddresForm({ countries }) {
                       *
                     </Box>
                   </FormLabel>
-                  <Autocomplete
-                    id="country-select-demo1"
-                    sx={{ width: 300 }}
+
+                  <TextField sx={{ display: "inline-flex", flexDirection: "column", position: "relative", minWidth: 0, padding: 0, margin: 0, border: 0, verticalAlign: "top", width: "100%" }}
+                    value={inputs.phonenumber}
+                    name="phonenumber"
+                    color="primary"
+                    size="small"
+                    onChange={handleChangeForm}
+                    type="number"
+                    placeholder="Phone Number" />
+                  {/* <Autocomplete
+                    id="country-select-demo"
                     options={countries}
                     autoHighlight
-                    getOptionLabel={(option) => `+ ${option.phone} `}
+                    getOptionLabel={(option) => option.label}
                     renderOption={(props, option) => (
                       <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
                         <img
@@ -115,25 +93,24 @@ function AddresForm({ countries }) {
                           src={`https://flagcdn.com/w20/${option.code.toLowerCase()}.png`}
                           alt=""
                         />
-                        {option.label}  +{option.phone}
+                        {option.label} ({option.code}) +{option.phone}
                       </Box>
                     )}
                     renderInput={(params) => (
-                      <TextField sx={{width:"80%", height:"0%"}}
-                      size="small"
-                      type="number"
-                      onChange={handleChangeForm}
-                      value={input.phoneNumber}
-                      name="phoneNumber"
+                      <TextField size="small"
+                      sx={{ color: "rgb(0,0,0,1)", fontWeight: 600, marginBottom: "10px !important", fontSize: "14px", position: "relative", padding: 0, backgroundColor: "white" }}
                         {...params}
-                        label= {(option)=> `${option.lable}+ ${option.phone}`}
+                        placeholder="Phone Number"
                         inputProps={{
                           ...params.inputProps,
                           autoComplete: 'new-password', // disable autocomplete and autofill
                         }}
+                        value={inputs.phonenumber}
+                        name="phonenumber"
+
                       />
                     )}
-                  />
+                  /> */}
                 </FormControl>
               </Grid>
             </Grid>
@@ -150,9 +127,10 @@ function AddresForm({ countries }) {
                       Find Address
                     </FormLabel>
                     <TextField
+                      placeholder="Find Address"
                       size="small"
                       sx={{ color: "rgb(0,0,0,1)", fontWeight: 600, marginBottom: "10px !important", fontSize: "14px", position: "relative", padding: 0, backgroundColor: "white" }}
-                      InputProps={{
+                      inputsProps={{
                         startAdornment: (
                           <InputAdornment position="start">
                             <SearchIcon />
@@ -172,36 +150,46 @@ function AddresForm({ countries }) {
                         *
                       </Box>
                     </FormLabel>
+                    <TextField sx={{ display: "inline-flex", flexDirection: "column", position: "relative", minWidth: 0, padding: 0, margin: 0, border: 0, verticalAlign: "top", width: "100%" }}
+                      value={inputs.country}
+                      name="country"
+                      color="primary"
+                      size="small"
+                      onChange={handleChangeForm}
+                      type="text"
+                      placeholder="Country" />
                   </FormControl>
-                  <Autocomplete
+                  {/* <Autocomplete
                     id="country-select-demo"
                     options={countries}
                     autoHighlight
                     getOptionLabel={(option) => option.label}
                     renderOption={(props, option) => (
-                      <Box
-                        component="li"
-                        sx={{ "& > img": { mr: 2, flexShrink: 0 } }}
-                        {...props}
-                      >
-                        {option.label}
+                      <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
+                        <img
+                          loading="lazy"
+                          width="20"
+                          srcSet={`https://flagcdn.com/w40/${option.code.toLowerCase()}.png 2x`}
+                          src={`https://flagcdn.com/w20/${option.code.toLowerCase()}.png`}
+                          alt=""
+                        />
+                        {option.label} ({option.code}) +{option.phone}
                       </Box>
                     )}
                     renderInput={(params) => (
-                      <TextField
-                      onChange={handleChangeForm}
-                        size="small"
-                        value={input.country}
-                        name="country"
-                        sx={{ backgroundColor: "white" }}
+                      <TextField size="small"
+                      sx={{ color: "rgb(0,0,0,1)", fontWeight: 600, marginBottom: "10px !important", fontSize: "14px", position: "relative", padding: 0, backgroundColor: "white" }}
                         {...params}
+                        placeholder= "india"
                         inputProps={{
                           ...params.inputProps,
-                          autoComplete: "new-password", // disable autocomplete and autofill
+                          autoComplete: 'new-password', // disable autocomplete and autofill
                         }}
+                        value={inputs.country}
+                        name="country"
                       />
                     )}
-                  />
+                  /> */}
                 </Grid>
               </Grid>
             </Box>
@@ -217,7 +205,7 @@ function AddresForm({ countries }) {
                   type="text"
                   onChange={handleChangeForm}
                   name="address1"
-                  value={input.address1}
+                  value={inputs.address1}
                   placeholder="Address 1" />
               </Grid>
               <Grid item xs={12} sm={6} md={6} sx={{ flexBasis: "50%", flexGrow: 0, maxWidth: "50%" }}>
@@ -228,7 +216,7 @@ function AddresForm({ countries }) {
                     size="small"
                     type="text"
                     onChange={handleChangeForm}
-                    value={input.address2}
+                    value={inputs.address2}
                     name="address2"
                     placeholder="Address 2" />
                 </FormControl>
@@ -240,7 +228,7 @@ function AddresForm({ countries }) {
                     color="primary"
                     size="small"
                     type="text"
-                    value={input.address3}
+                    value={inputs.address3}
                     onChange={handleChangeForm}
                     name="address3"
                     placeholder="Address 3" />
@@ -254,7 +242,7 @@ function AddresForm({ countries }) {
                     size="small"
                     type="text"
                     onChange={handleChangeForm}
-                    value={input.town}
+                    value={inputs.town}
                     name="town"
                     placeholder="Town / City" />
                 </FormControl>
@@ -266,7 +254,7 @@ function AddresForm({ countries }) {
                     color="primary"
                     size="small"
                     type="text"
-                    value={input.state}
+                    value={inputs.state}
                     onChange={handleChangeForm}
                     name="state"
                     placeholder="County / State" />
@@ -280,8 +268,8 @@ function AddresForm({ countries }) {
                     size="small"
                     type="text"
                     onChange={handleChangeForm}
-                    value={input.postalCode}
-                    name="postalCode"
+                    value={inputs.postalcode}
+                    name="postalcode"
                     placeholder="Postalcode / Zip Code" />
                 </FormControl>
               </Grid>
@@ -295,17 +283,19 @@ function AddresForm({ countries }) {
                 </Stack>
               </Grid>
             </Grid>
+
+            <Box sx={{ marginTop: "16px", paddingTop: "16px", borderTop: "1px solid rgb(238, 238, 238)" }}>
+              <Grid container spacing={3} sx={{ boxSizing: "border-box", display: "flex", flexFlow: "wrap", marginTop: "-24px", justifyContent: "flex-end", width: "calc(100% + 24px)", marginLeft: "-24px", alignItems: "center" }}>
+                <Grid item sx={{ margin: 0, boxSizing: "border-box", flexDirection: "row" }}>
+                  <Button type="button" variant="outliend" sx={{ backgroundColor: "transparent", cursor: "pointer", minWidth: "100px", color: "rgb(26, 34, 40)", border: "1px solid rgba(26, 34, 40, 0.5)" }}>Cancel</Button>
+                </Grid>
+                <Grid item sx={{ margin: 0, boxSizing: "border-box", flexDirection: "row" }}>
+                  <Button type="submit" variant="contained" sx={{ backgroundColor: "rgb(26, 34, 40)", cursor: "pointer", minWidth: "100px", color: "rgb(255, 255, 255)", border: "1px solid rgba(26, 34, 40, 0.5)", ":hover": { backgroundColor: "black" } }} onClick={handleSaveClick} >Save</Button>
+                  {isSaveClick && <AddresInfo />}
+                </Grid>
+              </Grid>
+            </Box>
           </form>
-        </Box>
-        <Box sx={{ marginTop: "16px", paddingTop: "16px", borderTop: "1px solid rgb(238, 238, 238)" }}>
-          <Grid container spacing={3} sx={{ boxSizing: "border-box", display: "flex", flexFlow: "wrap", marginTop: "-24px", justifyContent: "flex-end", width: "calc(100% + 24px)", marginLeft: "-24px", alignItems: "center" }}>
-            <Grid item sx={{ margin: 0, boxSizing: "border-box", flexDirection: "row" }}>
-              <Button type="button" variant="outliend" sx={{ backgroundColor: "transparent", cursor: "pointer", minWidth: "100px", color: "rgb(26, 34, 40)", border: "1px solid rgba(26, 34, 40, 0.5)" }}>Cancel</Button>
-            </Grid>
-            <Grid item sx={{ margin: 0, boxSizing: "border-box", flexDirection: "row" }}>
-              <Button type="submit" variant="contained" sx={{ backgroundColor: "rgb(26, 34, 40)", cursor: "pointer", minWidth: "100px", color: "rgb(255, 255, 255)", border: "1px solid rgba(26, 34, 40, 0.5)", ":hover": { backgroundColor: "black" } }} >Save</Button>
-            </Grid>
-          </Grid>
         </Box>
       </Box>
     </AccordionDetails>

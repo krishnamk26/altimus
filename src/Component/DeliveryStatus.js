@@ -14,8 +14,8 @@ function DeliveryStatus({selectedCard,firstCard,secondCard}) {
           textTransform: "capitalize",
           fontWeight: "normal",
         }}
-        variant="div"
-        component="p"
+        variant="p"
+        component="div"
       > 
         {selectedCard === "card1" && (
           <Typography variant="body1">{firstCard}</Typography> 
