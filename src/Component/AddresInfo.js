@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Accordion, AccordionSummary, AccordionDetails, Typography, Grid, Button,
 
@@ -13,7 +13,12 @@ import AddresForm from "./AddresForm";
 
 
 function AddresInfo({ handleChange, expanded, countries, inputs, handleChangeForm, handleSubmitForm, newAddress, handleNewAddress, isButtonClicked, handleButtonClicked, handleSaveClick, isSaveClick, checked, handleChanged, handleEditClicked, isEditClick,isCancelClick,handleCancelClick,setInputs,users,setUsers }) {
-
+  const [address,setAddress] = useState([])
+  useEffect(()=>{
+    fetch("http://localhost:8000/address")
+    .then(res=>res.json())
+    .then(data =>setAddress(data))
+  })
 
   return (
     <Grid sx={{ display: "flex", flexDirection: "column", marginBottom: "16px" }}>
@@ -46,10 +51,12 @@ function AddresInfo({ handleChange, expanded, countries, inputs, handleChangeFor
                 <Stack
                   sx={{ display: "flex", flexDirection: "row", gap: "10px", marginTop: "8px", }}>
                   <PersonOutlinedIcon color="disabled" />
+                  {address.map((add, index)=>(
                   <Typography
+                  key={index}
                     sx={{ lineHeight: 1.5, fontWeight: 600, color: "rgb(26, 34, 40)", textTransform: "uppercase", }}>
-                    {inputs.name}
-                  </Typography>
+                    {add.firstname}
+                  </Typography>))}
                 </Stack>
                 <Stack
                   sx={{
@@ -68,7 +75,7 @@ function AddresInfo({ handleChange, expanded, countries, inputs, handleChangeFor
                       textTransform: "lowercase",
                     }}
                   >
-                   {`${inputs.address1}, ${inputs.town}, ${inputs.postalcode}, ${inputs.country}`}
+                   {/* {`${add.address1}, ${add.address2}, ${add.address3}, ${add.town}, ${add.country}`} */}
                   </Typography>
                 </Stack>
                 <Stack
@@ -88,7 +95,7 @@ function AddresInfo({ handleChange, expanded, countries, inputs, handleChangeFor
                       textTransform: "lowercase",
                     }}
                   >
-                    {inputs.phonenumber}
+                   phonenumber
                   </Typography>
                 </Stack>
               </Box>
@@ -183,6 +190,7 @@ function AddresInfo({ handleChange, expanded, countries, inputs, handleChangeFor
               handleChanged={handleChanged}
               handleEditClicked={handleEditClicked}
               isEditClick={isEditClick}
+              address={address}
             />
           )}
           { isCancelClick&&(

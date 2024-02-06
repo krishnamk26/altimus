@@ -3,93 +3,49 @@ import {
   Accordion,
   AccordionSummary,
   AccordionDetails,
-  Typography,
+  Grid,
+  Button,
+  AccordionActions,
+  Box,
 } from "@mui/material";
 import ShipmentCard from "./ShipmentCard";
 import DeliveryStatus from "./DeliveryStatus";
-import TopButton from "./TopButton";
-import DownButton from "./DownButton";
+import "./shipment.css"
 
-function Shipment({
-  handleChange,
-  expanded,
-  buttonText,
-  showFirstButton,
-  handleButtonClick,
-  firstCard,
-  secondCard,
-  handleCardClick,
-  selectedCard,
-}) {
+function Shipment({ isShipmentChange, handleShipmentClick, firstCard, secondCard, handleCardClick, selectedCard, handleShipmentContinue, isShipmentContinue }) {
+
   return (
-    <>
-      <Accordion
-        sx={{ marginBottom: "32px" }}
-        expanded={expanded === "panel1"}
-        onChange={(event, isExpanded) => handleChange(isExpanded, "panel1")}
-        defaultExpanded
-      >
-        <AccordionSummary
-          id="panel1-header"
-          aria-controls="panel1-content"
-          expandIcon={
-            showFirstButton && (
-              <TopButton
-                buttonText={buttonText}
-                handleButtonClick={handleButtonClick}
-              />
-            )
-          }
-          component="div"
-        >
-          <Typography
-            sx={{ width: "100%", flexShrink: 1, textTransform: "uppercase" }}
-            variant="div"
-            component="h5"
-          >
-            choose shipment method
+    <Grid sx={{ display: "flex", flexDirection: "column", marginBottom: "32px" }}>
+      <Accordion defaultExpanded>
+      {isShipmentContinue && !isShipmentChange&&(
+          <AccordionSummary>
             <DeliveryStatus
+              isShipmentContinue={isShipmentContinue}
+              handleShipmentClick={handleShipmentClick}
               selectedCard={selectedCard}
               firstCard={firstCard}
+              secondCard={secondCard} />
+          </AccordionSummary>
+        )}
+        {!isShipmentChange&& !isShipmentContinue&&(
+          <AccordionDetails sx={{ padding: "16px" }}>
+            <ShipmentCard
+              firstCard={firstCard}
               secondCard={secondCard}
-            />
-          </Typography>
-        </AccordionSummary>
+              handleCardClick={handleCardClick}
+              selectedCard={selectedCard}
+              handleShipmentContinue={handleShipmentContinue} />
 
-        <AccordionDetails
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-            backgroundColor: "rgb(233, 235, 238)",
-            padding: "16px",
-          }}
-        >
-          <ShipmentCard
-            firstCard={firstCard}
-            secondCard={secondCard}
-            handleCardClick={handleCardClick}
-            selectedCard={selectedCard}
-          />
-        </AccordionDetails>
-        <AccordionDetails>
-          <Typography
-            component="div"
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "flex-end",
-              padding: "16px",
-            }}
-          >
-            <DownButton
-              buttonText={buttonText}
-              handleButtonClick={handleButtonClick}
-            />
-          </Typography>
-        </AccordionDetails>
+            <Box sx={{ padding: "16px", background: "white", borderTop: "1px solid #eeeeee", borderBottomRightRadius: "8px", borderBottomLeftRadius: "8px" }}>
+              <AccordionActions>
+                <Button type="button" variant="outliend" sx={{ color: "#fff", backgroundColor: "#1a2228", ":hover": { backgroundColor: "black" }, }} onClick={handleShipmentContinue}>Continue</Button>
+                {isShipmentContinue && <DeliveryStatus/>}
+              </AccordionActions>
+            </Box>
+          </AccordionDetails>
+        )}
       </Accordion>
-    </>
+    </Grid>
   );
 }
 
